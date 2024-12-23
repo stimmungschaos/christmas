@@ -1,0 +1,21 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  to        String   @db.VarChar(255)
+  from      String   @db.VarChar(255)
+  message   String   @db.Text
+  spotifyTrackId String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  @@index([createdAt])
+  @@index([expiresAt])
+} 
